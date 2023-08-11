@@ -1,0 +1,2 @@
+#!/bin/bash
+gcc link.c -c -o link.o
