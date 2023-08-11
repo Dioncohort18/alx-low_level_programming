@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc link.c -c -o link.o
+gcc 0-main.c -c -o main.o
