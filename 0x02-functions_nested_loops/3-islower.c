@@ -6,6 +6,7 @@
  *return: 1 if it is lower case, 0 otherwise
 **/
 int _islower(int c)
+	return (0)
 {
 	int i;
 
