@@ -3,10 +3,11 @@
  * _islower - checks for lower case character
  * @c: number to be checked
  *
- *return: 1 if it is lower case, 0 otherwise
+ * main.h: created header
+ *
+ * return: 1 if it is lower case, 0 otherwise
 **/
 int _islower(int c)
-	return (0)
 {
 	int i;
 
@@ -15,5 +16,4 @@ int _islower(int c)
 		return (1);
 	else
 		return (0);
-	return (0);
 }
