@@ -1,71 +1,47 @@
 #include "main.h"
+#include <stdlib.h>
 
 /**
- * _strcat - Concat string, src appended to dest
- *
- * @dest: Destination string
- * @src: Source string
- * Return: Concat newString to dest
- */
-char *_strcat(char *dest, char *src)
-{
-        int a, b;
-
-        for (a = 0; dest[a] != '\0'; a++)
-                ;
-        for (b = 0; src[b] != '\0'; b++)
-        {
-                dest[a] = src[b];
-                a++;
-        }
-        return (dest);
-}
-
-/**
- * _strlen - Return the number of the length of the string
- *
- * @s: This is the string to check
- *
- * Return: Return the length of the string
- */
-int _strlen(char *s)
-{
-	int a;
-
-	for (a = 0; s[a] != '\0'; a++)
-		;
-	return (a);
-}
-
-/**
- * argstostr - Concats argv to new string
- *
- * @ac: Argument count
- * @av: Arguments
- *
- * Return: Returns a pointer to a new string, or NULL if it fails
- */
-
+* *argstostr - concatenates all arguements to the program
+* @ac: arguement count
+* @av: pointer to arguements
+* Return: pointer to new space in memory or null
+**/
 char *argstostr(int ac, char **av)
 {
-	int index, sumString;
-	char *newString;
-
-	sumString = 1;
+	char *strDup;
+	int i, j, k, size;
 
 	if (ac == 0 || av == NULL)
-		return (0);
-	for (index = 0; index < ac && av[index]; index++)
-	{
-		sumString += _strlen(av[index]);
-	}
-	newString = malloc((sumString * sizeof(char)) + ac);
-	for (index = 0; index < ac && av[index]; index++)
-	{
-		newString = _strcat(newString, av[index]);
-		newString = _strcat(newString, "\n");
-	}
-	if (newString == NULL)
 		return (NULL);
-	return (newString);
+
+	size = 0;
+	/* count the number of chars in each string */
+	for (i = 0; i < ac; i++)
+	{
+		for (j = 0; av[i][j] != '\0'; j++)
+			size++;
+		size++;
+	}
+	size++;
+
+	 /* allocate memory for total number of chars and
+	 * new line for each word
+	 */
+	strDup = malloc(sizeof(char) * size);
+
+	if (strDup == NULL)
+		return (NULL);
+
+	k = 0;
+	for (i = 0; i < ac; i++)
+	{
+		for (j = 0; av[i][j] != '\0'; j++)
+		{
+			strDup[k++] = av[i][j];
+		}
+		strDup[k++] = '\n';
+	}
+	strDup[k] = '\0';
+	return (strDup);
 }
