@@ -1,58 +1,71 @@
 #include "main.h"
-#include <stdlib.h>
+
 /**
- * _strlen - returns the length of a string
- * @s: pointer to s
+ * _strcat - Concat string, src appended to dest
  *
- * Return: 0 on success
+ * @dest: Destination string
+ * @src: Source string
+ * Return: Concat newString to dest
+ */
+char *_strcat(char *dest, char *src)
+{
+        int a, b;
+
+        for (a = 0; dest[a] != '\0'; a++)
+                ;
+        for (b = 0; src[b] != '\0'; b++)
+        {
+                dest[a] = src[b];
+                a++;
+        }
+        return (dest);
+}
+
+/**
+ * _strlen - Return the number of the length of the string
  *
+ * @s: This is the string to check
+ *
+ * Return: Return the length of the string
  */
 int _strlen(char *s)
 {
-	int count = 0;
+	int a;
 
-	if (s != '\0')
-	{
-		while (*(s + count) != '\0')
-			count++;
-	}
-	return (count);
+	for (a = 0; s[a] != '\0'; a++)
+		;
+	return (a);
 }
+
 /**
- * argstostr - concatenates all the arguments of your program
- * @ac: number of args
- * @av: arguments
+ * argstostr - Concats argv to new string
  *
- * Return: pointer to new string
+ * @ac: Argument count
+ * @av: Arguments
+ *
+ * Return: Returns a pointer to a new string, or NULL if it fails
  */
+
 char *argstostr(int ac, char **av)
 {
-	int i, j, k, len, total_len;
-	char *new_str;
+	int index, sumString;
+	char *newString;
+
+	sumString = 1;
 
 	if (ac == 0 || av == NULL)
-		return (NULL);
-	len = 0;
-	total_len = 0;
-	for (i = 0; i < ac; i++)
+		return (0);
+	for (index = 0; index < ac && av[index]; index++)
 	{
-		len = _strlen(av[i]);
-		total_len += len + 1;
+		sumString += _strlen(av[index]);
 	}
-	new_str = malloc(sizeof(char) * (total_len + 1));
-	if (new_str == NULL)
-		return (NULL);
-	k = 0;
-	for (i = 0; i < ac; i++)
+	newString = malloc((sumString * sizeof(char)) + ac);
+	for (index = 0; index < ac && av[index]; index++)
 	{
-		for (j = 0; av[i][j] != '\0'; j++)
-		{
-			new_str[k] = av[i][j];
-			k++;
-		}
-		new_str[k] = '\n';
-		k++;
+		newString = _strcat(newString, av[index]);
+		newString = _strcat(newString, "\n");
 	}
-	new_str[k] = '\0';
-	return (new_str);
+	if (newString == NULL)
+		return (NULL);
+	return (newString);
 }
