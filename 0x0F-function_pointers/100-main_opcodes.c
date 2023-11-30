@@ -1,33 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 /**
- * main
- * @argc: number of args
- * @argv: pointers to string args
- * Return: Always 0 on success
+ * 
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: Always 0.
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int n, i;
+	int bytes, index;
+	int (*address)(int, char **) = main;
+	unsigned char opcode;
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		exit(1);
 	}
-	n  = atoi(argv[1]);
-	if (n < 0)
+
+	bytes = atoi(argv[1]);
+
+	if (bytes < 0)
 	{
 		printf("Error\n");
 		exit(2);
 	}
-	for (i = 0; i < n; i++)
+
+	for (index = 0; index < bytes; index++)
 	{
-		printf("%02hhx", ((char *)main)[i]);
-		if (i != (n - 1))
-			printf(" ");
-		else
-			printf("\n");
+		opcode = *(unsigned char *)address;
+		printf("%.2x", opcode);
+
+		if (index == bytes - 1)
+			continue;
+		printf(" ");
+
+		address++;
 	}
+
+	printf("\n");
+
 	return (0);
 }
